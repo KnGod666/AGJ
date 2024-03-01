@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2ancbkihnetp"]
+
+[ext_resource type="Texture2D" uid="uid://c3gspl28vylab" path="res://Resources/Sprites/MC.png" id="1_wx4jw"]
+[ext_resource type="PackedScene" uid="uid://cwaiuf61llhcq" path="res://Scenes/player_movement.tscn" id="2_7gdkh"]
+
+[node name="Player" type="Node2D"]
+
+[node name="Mc" type="Sprite2D" parent="."]
+texture = ExtResource("1_wx4jw")
+
+[node name="player_movement" parent="Mc" node_paths=PackedStringArray("player_node") instance=ExtResource("2_7gdkh")]
+player_node = NodePath("../..")

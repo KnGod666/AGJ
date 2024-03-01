@@ -10,13 +10,13 @@ config_version=5
 
 [application]
 
-config/name="AGG"
+config/name="AGJ"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [dotnet]
 
-project/assembly_name="AGG"
+project/assembly_name="AGJ"
 
 [rendering]
 
