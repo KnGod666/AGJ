@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2ancbkihnetp"]
+[gd_scene load_steps=5 format=3 uid="uid://d2ancbkihnetp"]
 
 [ext_resource type="Texture2D" uid="uid://c3gspl28vylab" path="res://Resources/Sprites/MC.png" id="1_wx4jw"]
 [ext_resource type="PackedScene" uid="uid://cwaiuf61llhcq" path="res://Scenes/player_movement.tscn" id="2_7gdkh"]
+[ext_resource type="PackedScene" uid="uid://be7uxa0ahee2k" path="res://Scenes/TP_tool.tscn" id="3_hole5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ss1fp"]
+size = Vector2(80, 80)
 
 [node name="Player" type="Node2D"]
 
@@ -10,3 +14,18 @@ texture = ExtResource("1_wx4jw")
 
 [node name="player_movement" parent="Mc" node_paths=PackedStringArray("player_node") instance=ExtResource("2_7gdkh")]
 player_node = NodePath("../..")
+
+[node name="PlayerColission" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerColission"]
+shape = SubResource("RectangleShape2D_ss1fp")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+
+[node name="TpTool" parent="." node_paths=PackedStringArray("player_node") instance=ExtResource("3_hole5")]
+visible = false
+player_node = NodePath("..")
+
+[connection signal="tp_enabled" from="TpTool" to="Mc/player_movement" method="_on_tp_tool_tp_enabled"]
