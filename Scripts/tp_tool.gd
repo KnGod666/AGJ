@@ -22,7 +22,9 @@ func _input(event):
 			#locked = true
 			if i.x != 0 and i.y !=0:
 				i.y = 0
+				i.x = sign(i.x)
 			position += i*100
+			print(position)
 				#create_tween().tween_property(self,"position",position+i*100,0.2).finished.connect(unlock)
 			#else:
 			#	locked = false
@@ -30,11 +32,15 @@ func _input(event):
 			var tp_list = []
 			for x in range(-100,200,100):
 				for y in range(-100,200,100):
-					tp_probe.position = Vector2(x,y)
-					tp_probe.force_raycast_update()
-					if not (tp_probe.is_colliding()):
-						tp_list.push_back(Vector2(x,y))
-					pass
+					var pos = Vector2(x,y)
+					var visible_space = get_viewport_rect()
+					visible_space.position+=get_viewport().get_camera_2d().get_screen_center_position()-visible_space.size/2
+					if visible_space.has_point(to_global(pos)):
+						tp_probe.position = pos
+						tp_probe.force_raycast_update()
+						if not (tp_probe.is_colliding()):
+							tp_list.push_back(Vector2(x,y))
+						pass
 			if tp_list.size() > 0:
 				var tp_target = to_global(tp_list[randi_range(0,tp_list.size()-1)])
 				#tp_target -= Vector2(50,50)
