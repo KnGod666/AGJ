@@ -40,12 +40,15 @@ func _input(event):
 						tp_probe.force_raycast_update()
 						if not (tp_probe.is_colliding()):
 							tp_list.push_back(Vector2(x,y))
+						elif tp_probe.get_collider().name == "BlackHoleArea":
+							player_node.position = to_global(Vector2(x,y))
+							switch_enabled()
+							return
 						pass
 			if tp_list.size() > 0:
 				var tp_target = to_global(tp_list[randi_range(0,tp_list.size()-1)])
 				#tp_target -= Vector2(50,50)
-				print(tp_target)
-				player_node.position =	tp_target
+				player_node.position = tp_target
 				switch_enabled()
 	if(event.is_action_pressed("TP_enable")):
 		switch_enabled()

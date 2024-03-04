@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://cpu1q78oegnfo"]
+
+[ext_resource type="Shader" path="res://Resources/Shaders/vortex.gdshader" id="1_8q8nv"]
+[ext_resource type="Script" path="res://Scripts/white_hole.gd" id="1_ydcnd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uo67m"]
+shader = ExtResource("1_8q8nv")
+shader_parameter/intensity = 4.0
+shader_parameter/rel_rect_size = Vector2(1024, 1000)
+
+[sub_resource type="Gradient" id="Gradient_kh0r6"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a3fix"]
+gradient = SubResource("Gradient_kh0r6")
+width = 100
+height = 100
+fill_to = Vector2(0.753846, 0.373077)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vquk8"]
+size = Vector2(100, 100)
+
+[node name="WhiteHole" type="Node2D"]
+script = ExtResource("1_ydcnd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_uo67m")
+texture = SubResource("GradientTexture2D_a3fix")
+
+[node name="WhiteHoleArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WhiteHoleArea"]
+shape = SubResource("RectangleShape2D_vquk8")
+
+[connection signal="area_entered" from="WhiteHoleArea" to="." method="_on_white_hole_area_area_entered"]
