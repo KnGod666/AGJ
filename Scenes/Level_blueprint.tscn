@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://y75sabpql6s1"]
+[gd_scene load_steps=7 format=3 uid="uid://y75sabpql6s1"]
 
 [ext_resource type="Texture2D" uid="uid://bc866dxvy17tn" path="res://Resources/Tilesets/TempTiles.png" id="1_m2j7s"]
 [ext_resource type="PackedScene" uid="uid://d2ancbkihnetp" path="res://Scenes/Player.tscn" id="2_k1heu"]
+[ext_resource type="PackedScene" uid="uid://br4me68oyixkm" path="res://Scenes/Black_hole.tscn" id="2_pqg1m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8t56w"]
 texture = ExtResource("1_m2j7s")
@@ -58,11 +59,15 @@ texture_region_size = Vector2i(100, 100)
 3:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:3/0/physics_layer_0/angular_velocity = 0.0
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_qhjpv"]
+scenes/1/scene = ExtResource("2_pqg1m")
+
 [sub_resource type="TileSet" id="TileSet_e6ol2"]
 tile_size = Vector2i(100, 100)
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_8t56w")
+sources/1 = SubResource("TileSetScenesCollectionSource_qhjpv")
 
 [node name="LevelBlueprint" type="Node2D"]
 

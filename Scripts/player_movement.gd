@@ -14,7 +14,7 @@ func _process(delta):
 	pass
 
 func _input(event):
-	if enabled:
+	if enabled and not player_node.dead:
 		var i = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 		if i != Vector2(0,0) and not locked:
 			locked = true
