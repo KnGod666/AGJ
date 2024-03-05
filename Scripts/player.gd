@@ -1,12 +1,14 @@
 extends Node2D
 
 signal player_death
+signal turn_played
+var states_stack = []
 
 @onready var animation_player = $AnimationPlayer
 var dead = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	turn_passed()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,3 +20,21 @@ func die():
 	dead = true
 	player_death.emit()
 	pass
+
+func turn_passed():
+	save_state()
+
+func save_state():
+	if states_stack.size() >=30:
+		states_stack.pop_front()
+	states_stack.push_back([position,scale,rotation,dead])
+	pass
+
+func restore_state():
+	if not states_stack.is_empty():
+		var state = states_stack.pop_back()
+		#interpolate on these
+		position = state[0]
+		scale = state[1]
+		rotation = state[2]
+		dead = state[3]

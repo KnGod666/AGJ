@@ -1,5 +1,7 @@
 extends Node2D
 
+signal moved
+
 @export var player_node :Node2D
 @onready var raycast = $"../../RayCast2D"
 var locked = false
@@ -23,9 +25,14 @@ func _input(event):
 			raycast.target_position = i*100
 			raycast.force_raycast_update()
 			if not raycast.is_colliding():
-				player_node.create_tween().tween_property(player_node,"position",player_node.position+i*100,0.2).finished.connect(unlock)
+				moved.emit()
+				player_node.create_tween().tween_property(player_node,"position",player_node.position+i*100,0.2).finished.connect(movement_made)
 			else:
 				locked = false
+	pass
+
+func movement_made():
+	unlock()
 	pass
 
 func unlock():

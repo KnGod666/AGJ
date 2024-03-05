@@ -96,4 +96,6 @@ libraries = {
 "": SubResource("AnimationLibrary_miy1i")
 }
 
+[connection signal="moved" from="Mc/player_movement" to="." method="turn_passed"]
+[connection signal="player_moved" from="TpTool" to="." method="turn_passed"]
 [connection signal="tp_enabled" from="TpTool" to="Mc/player_movement" method="_on_tp_tool_tp_enabled"]
