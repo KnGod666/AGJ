@@ -1,40 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://d2ancbkihnetp"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_l4m8e"]
-[ext_resource type="Texture2D" uid="uid://c3gspl28vylab" path="res://Resources/Sprites/MC.png" id="1_wx4jw"]
-[ext_resource type="PackedScene" uid="uid://cwaiuf61llhcq" path="res://Scenes/player_movement.tscn" id="2_7gdkh"]
-[ext_resource type="PackedScene" uid="uid://be7uxa0ahee2k" path="res://Scenes/TP_tool.tscn" id="3_hole5"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_i3mqe"]
+[ext_resource type="Texture2D" uid="uid://c3gspl28vylab" path="res://Resources/Sprites/MC.png" id="2_wvjol"]
+[ext_resource type="PackedScene" uid="uid://be7uxa0ahee2k" path="res://Scenes/Entity/TP_tool.tscn" id="3_s2tpj"]
+[ext_resource type="PackedScene" uid="uid://cwaiuf61llhcq" path="res://Scenes/player_movement.tscn" id="4_livpc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ss1fp"]
 size = Vector2(80, 80)
-
-[sub_resource type="Animation" id="Animation_wkm0g"]
-resource_name = "deat_by_black_hole"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 6.28319]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1e-05, 1e-05)]
-}
 
 [sub_resource type="Animation" id="Animation_le4pg"]
 length = 0.001
@@ -63,31 +35,56 @@ tracks/1/keys = {
 "values": [Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_wkm0g"]
+resource_name = "death_by_black_hole"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_miy1i"]
 _data = {
 "RESET": SubResource("Animation_le4pg"),
-"deat_by_black_hole": SubResource("Animation_wkm0g")
+"death_by_black_hole": SubResource("Animation_wkm0g")
 }
 
 [node name="Player" type="Node2D"]
-script = ExtResource("1_l4m8e")
+script = ExtResource("1_i3mqe")
 
 [node name="Mc" type="Sprite2D" parent="."]
-texture = ExtResource("1_wx4jw")
-
-[node name="player_movement" parent="Mc" node_paths=PackedStringArray("player_node") instance=ExtResource("2_7gdkh")]
-player_node = NodePath("../..")
+texture = ExtResource("2_wvjol")
 
 [node name="PlayerColission" type="Area2D" parent="."]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerColission"]
 shape = SubResource("RectangleShape2D_ss1fp")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 
-[node name="TpTool" parent="." node_paths=PackedStringArray("player_node") instance=ExtResource("3_hole5")]
+[node name="TpTool" parent="." node_paths=PackedStringArray("player_node") instance=ExtResource("3_s2tpj")]
 visible = false
 player_node = NodePath("..")
 
@@ -96,6 +93,9 @@ libraries = {
 "": SubResource("AnimationLibrary_miy1i")
 }
 
-[connection signal="moved" from="Mc/player_movement" to="." method="turn_passed"]
+[node name="player_movement" parent="." node_paths=PackedStringArray("player_node") instance=ExtResource("4_livpc")]
+player_node = NodePath("..")
+
 [connection signal="player_moved" from="TpTool" to="." method="turn_passed"]
-[connection signal="tp_enabled" from="TpTool" to="Mc/player_movement" method="_on_tp_tool_tp_enabled"]
+[connection signal="tp_enabled" from="TpTool" to="player_movement" method="_on_tp_tool_tp_enabled"]
+[connection signal="moved" from="player_movement" to="." method="turn_passed"]

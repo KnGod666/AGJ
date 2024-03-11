@@ -1,6 +1,8 @@
-extends Node2D
+extends Node
 
+signal tp_left_changed
 
+var tp_left
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -10,12 +12,7 @@ func _ready():
 func _process(delta):
 	pass
 
-func change_scene(scene:PackedScene):
-	#TODO scene transition
-	#free prev scene
-	$Level.get_child(0).queue_free()
-	#instantiate new scene
-	
-	$Level.call_deferred("add_child",scene.instantiate())
-	
-	pass
+func set_tp_left(val):
+	var prev_val = tp_left
+	tp_left = val
+	tp_left_changed.emit(prev_val, tp_left)

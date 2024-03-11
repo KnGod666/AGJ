@@ -2,13 +2,9 @@ extends Node2D
 signal change_scene
 signal rewind_action
 # Called when the node enters the scene tree for the first time.
+@export var level_initial_tp = 100
 func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	GlobalState.set_tp_left(level_initial_tp)
 
 func _input(event):
 	if event.is_action_pressed("rewind"):

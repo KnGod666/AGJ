@@ -8,7 +8,7 @@ var states_stack = []
 var dead = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	turn_passed()
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -16,18 +16,19 @@ func _process(delta):
 	pass
 
 func die():
-	animation_player.play("deat_by_black_hole")
+	animation_player.play("death_by_black_hole")
 	dead = true
 	player_death.emit()
 	pass
 
 func turn_passed():
 	save_state()
+	turn_played.emit()
 
 func save_state():
 	if states_stack.size() >=30:
 		states_stack.pop_front()
-	states_stack.push_back([position,scale,rotation,dead])
+	states_stack.push_back([position,scale,rotation,dead,GlobalState.tp_left])
 	pass
 
 func restore_state():
@@ -38,3 +39,10 @@ func restore_state():
 		scale = state[1]
 		rotation = state[2]
 		dead = state[3]
+		GlobalState.tp_left = state[4]
+
+func lock_movement():
+	$player_movement.locked = true
+
+func unlock_movement():
+	$player_movement.locked = false

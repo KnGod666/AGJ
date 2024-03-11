@@ -3,7 +3,7 @@ extends Node2D
 signal moved
 
 @export var player_node :Node2D
-@onready var raycast = $"../../RayCast2D"
+@onready var raycast = $"../RayCast2D"
 var locked = false
 var enabled = true
 # Called when the node enters the scene tree for the first time.

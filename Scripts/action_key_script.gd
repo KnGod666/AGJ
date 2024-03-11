@@ -1,21 +1,13 @@
-extends Node2D
+extends Control
 
-
+@export var texture:Texture2D
+@export var text:String
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$TextureRect.texture = texture
+	$Label.text = text
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
-
-func change_scene(scene:PackedScene):
-	#TODO scene transition
-	#free prev scene
-	$Level.get_child(0).queue_free()
-	#instantiate new scene
-	
-	$Level.call_deferred("add_child",scene.instantiate())
-	
 	pass

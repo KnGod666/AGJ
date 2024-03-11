@@ -30,32 +30,37 @@ func _input(event):
 			#else:
 			#	locked = false
 		if Input.is_action_pressed("TP_confirm"):
-			var tp_list = []
-			for x in range(-100,200,100):
-				for y in range(-100,200,100):
-					var pos = Vector2(x,y)
-					var visible_space = get_viewport_rect()
-					visible_space.position+=get_viewport().get_camera_2d().get_screen_center_position()-visible_space.size/2
-					if visible_space.has_point(to_global(pos)):
-						tp_probe.position = pos
-						tp_probe.force_raycast_update()
-						if not (tp_probe.is_colliding()):
-							tp_list.push_back(pos)
-						elif tp_probe.get_collider().name == "BlackHoleArea":
-							tp_player(pos)
-							return
-						pass
-			if tp_list.size() > 0:
-				var tp_target = tp_list[randi_range(0,tp_list.size()-1)]
-				#tp_target -= Vector2(50,50)
-				tp_player(tp_target)
+			tp_action()
 	if(event.is_action_pressed("TP_enable")):
 		switch_enabled()
 	pass
 
+func tp_action():
+	if GlobalState.tp_left > 0:
+		var tp_list = []
+		for x in range(-100,200,100):
+			for y in range(-100,200,100):
+				var pos = Vector2(x,y)
+				var visible_space = get_viewport_rect()
+				visible_space.position+=get_viewport().get_camera_2d().get_screen_center_position()-visible_space.size/2
+				if visible_space.has_point(to_global(pos)):
+					tp_probe.position = pos
+					tp_probe.force_raycast_update()
+					if not (tp_probe.is_colliding()):
+						tp_list.push_back(pos)
+					elif tp_probe.get_collider().name == "BlackHoleArea":
+						tp_player(pos)
+						return
+					pass
+		if tp_list.size() > 0:
+			var tp_target = tp_list[randi_range(0,tp_list.size()-1)]
+			#tp_target -= Vector2(50,50)
+			tp_player(tp_target)
+
 func tp_player(point):
 	player_moved.emit()
 	player_node.position = to_global(point)
+	GlobalState.set_tp_left(GlobalState.tp_left-1)
 	switch_enabled()
 	pass
 
