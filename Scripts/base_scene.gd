@@ -3,6 +3,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Level.child_entered_tree.connect(connect_scene)
 	pass # Replace with function body.
 
 
@@ -17,5 +18,7 @@ func change_scene(scene:PackedScene):
 	#instantiate new scene
 	
 	$Level.call_deferred("add_child",scene.instantiate())
-	
+
+func connect_scene(child):
+	child.change_scene.connect(change_scene)
 	pass

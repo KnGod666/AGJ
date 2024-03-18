@@ -36,6 +36,8 @@ func movement_made():
 	pass
 
 func unlock():
+	var sup = sign(player_node.position)*50
+	player_node.position = floor((player_node.position-sup)/100)*100+sup
 	locked = false
 
 

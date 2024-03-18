@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://denwhy3572vse"]
+
+[ext_resource type="PackedScene" uid="uid://y75sabpql6s1" path="res://Scenes/Level_blueprint.tscn" id="1_0jwdu"]
+[ext_resource type="Script" path="res://Scripts/final_handler.gd" id="2_4tqa3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3etk5"]
+font_size = 120
+font_color = Color(0.12549, 0.486275, 0.870588, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="LevelBlueprint" instance=ExtResource("1_0jwdu")]
+level_initial_tp = 999
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer" index="1"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -533.0
+offset_top = -82.5
+offset_right = 533.0
+offset_bottom = 82.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Thanks for playing"
+label_settings = SubResource("LabelSettings_3etk5")
+
+[node name="FinalHandler" type="Node" parent="." index="3"]
+script = ExtResource("2_4tqa3")

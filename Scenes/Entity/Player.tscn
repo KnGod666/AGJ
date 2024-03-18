@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cwaiuf61llhcq" path="res://Scenes/player_movement.tscn" id="4_livpc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ss1fp"]
-size = Vector2(80, 80)
+size = Vector2(60, 60)
 
 [sub_resource type="Animation" id="Animation_le4pg"]
 length = 0.001

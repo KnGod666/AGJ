@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://1w8fvkjo81pu"]
+[gd_scene load_steps=4 format=3 uid="uid://1w8fvkjo81pu"]
 
 [ext_resource type="Script" path="res://Scripts/action_key_script.gd" id="1_g81cj"]
 [ext_resource type="Texture2D" uid="uid://b6ifioff5aked" path="res://Resources/Sprites/asteroid.png" id="1_qukpw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_k6w3h"]
+font_size = 32
+font_color = Color(0.74902, 0, 0.623529, 1)
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
 
 [node name="HBoxContainer" type="HBoxContainer"]
 offset_right = 40.0
@@ -15,3 +21,4 @@ texture = ExtResource("1_qukpw")
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
 text = "test text"
+label_settings = SubResource("LabelSettings_k6w3h")

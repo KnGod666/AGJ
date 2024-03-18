@@ -10,7 +10,9 @@ config_version=5
 
 [application]
 
-config/name="AGJ"
+config/name="Trapped in Glitch Space"
+config/version="0.0.1"
+run/main_scene="res://Scenes/Base_scene.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -20,8 +22,8 @@ GlobalState="*res://Scripts/global_state.gd"
 
 [display]
 
-window/size/viewport_width=1200
-window/size/viewport_height=700
+window/size/viewport_width=1100
+window/size/viewport_height=600
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 

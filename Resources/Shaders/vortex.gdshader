@@ -19,9 +19,6 @@ void fragment() {
 	vec2 disp = (newp - UV) * rel_rect_size * SCREEN_PIXEL_SIZE;
 	disp.y = -disp.y; // for some reason UV and SCEEN_UV are inveresed
 	COLOR = mix(texture(TEXTURE, UV + disp), c, (0.5-distFromCen(UV)));
-	//COLOR = c;
-	//Doesn'[t apply effect outside of circle]
-	if (distFromCen(UV) > 0.5) {
-		//COLOR = texture(TEXTURE, UV);
-	}
+	COLOR.w =1.0 -  pow((distFromCen(UV)) / 0.5,10);
+	
 }

@@ -26,7 +26,7 @@ func turn_passed():
 	turn_played.emit()
 
 func save_state():
-	if states_stack.size() >=30:
+	if states_stack.size() >=127:
 		states_stack.pop_front()
 	states_stack.push_back([position,scale,rotation,dead,GlobalState.tp_left])
 	pass
@@ -34,12 +34,13 @@ func save_state():
 func restore_state():
 	if not states_stack.is_empty():
 		var state = states_stack.pop_back()
+		$AnimationPlayer.play("RESET")
 		#interpolate on these
 		position = state[0]
 		scale = state[1]
 		rotation = state[2]
 		dead = state[3]
-		GlobalState.tp_left = state[4]
+		GlobalState.set_tp_left(state[4])
 
 func lock_movement():
 	$player_movement.locked = true
