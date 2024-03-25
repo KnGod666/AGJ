@@ -20,6 +20,7 @@ func _input(event):
 		var i = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 		if i != Vector2(0,0) and not locked:
 			locked = true
+			$"../TpTool".lock()
 			if i.x != 0 and i.y !=0:
 				i.y = 0
 			raycast.target_position = i*100
@@ -29,15 +30,17 @@ func _input(event):
 				player_node.create_tween().tween_property(player_node,"position",player_node.position+i*100,0.2).finished.connect(movement_made)
 			else:
 				locked = false
+				$"../TpTool".unlock()
 	pass
 
 func movement_made():
 	unlock()
+	$"../TpTool".unlock()
 	pass
 
 func unlock():
 	var sup = sign(player_node.position)*50
-	player_node.position = floor((player_node.position-sup)/100)*100+sup
+	player_node.position = floor((player_node.position)/100)*100+Vector2(50,50)
 	locked = false
 
 

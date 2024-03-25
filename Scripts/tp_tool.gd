@@ -9,6 +9,7 @@ var locked = false
 var enabled = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	switch_enabled()
 	pass # Replace with function body.
 
 
@@ -17,23 +18,17 @@ func _process(delta):
 	pass
 
 func _input(event):
-	if enabled and not player_node.dead:
-		var i = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
-		#i should check if it's moving within the range of the screen
-		if i != Vector2(0,0) and not locked:
-			#locked = true
-			if i.x != 0 and i.y !=0:
-				i.y = 0
-				i.x = sign(i.x)
-			position += i*100
-				#create_tween().tween_property(self,"position",position+i*100,0.2).finished.connect(unlock)
-			#else:
-			#	locked = false
-		if Input.is_action_pressed("TP_confirm"):
-			tp_action()
-	if(event.is_action_pressed("TP_enable")):
-		switch_enabled()
-	pass
+	if event is InputEventMouseMotion:
+		var pos = get_global_mouse_position()
+		pos = get_parent().to_local(floor((pos)/100)*100+Vector2(50,50))
+		if position != pos:
+			position  = pos
+	if event is InputEventMouseButton and not locked:
+		event = event as InputEventMouseButton
+		if event.is_action_pressed("mouse_action"):
+			tp_action()#debuguear bien fuerte
+			pass
+		pass
 
 func tp_action():
 	if GlobalState.tp_left > 0:
@@ -42,6 +37,7 @@ func tp_action():
 			for y in range(-100,200,100):
 				var pos = Vector2(x,y)
 				var visible_space = get_viewport_rect()
+				#tengo q revisar esto de aqui
 				visible_space.position+=get_viewport().get_camera_2d().get_screen_center_position()-visible_space.size/2
 				if visible_space.has_point(to_global(pos)):
 					tp_probe.position = pos
@@ -61,13 +57,15 @@ func tp_player(point):
 	player_moved.emit()
 	player_node.position = to_global(point)
 	GlobalState.set_tp_left(GlobalState.tp_left-1)
-	switch_enabled()
 	pass
 
 func switch_enabled():
 	position = Vector2(0,0)
 	enabled = not enabled;
 	visible = enabled
-	tp_enabled.emit(enabled)
+	#tp_enabled.emit(enabled)
 func unlock():
 	locked = false
+
+func lock():
+	locked = true

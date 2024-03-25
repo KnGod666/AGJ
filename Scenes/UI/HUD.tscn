@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bjv7wg4m05251"]
+[gd_scene load_steps=7 format=3 uid="uid://bjv7wg4m05251"]
 
 [ext_resource type="Script" path="res://Scripts/hud_handler.gd" id="1_o4mab"]
 [ext_resource type="PackedScene" uid="uid://1w8fvkjo81pu" path="res://Scenes/UI/action_key_label.tscn" id="2_ap563"]
-[ext_resource type="Texture2D" uid="uid://de1bbq5da3ca6" path="res://Resources/keyboard_space.png" id="3_w4knj"]
 [ext_resource type="Texture2D" uid="uid://dtysqfctk3o8v" path="res://Resources/keyboard_e.png" id="4_peg4k"]
 [ext_resource type="Texture2D" uid="uid://va0rfx33oluj" path="res://Resources/keyboard_r.png" id="5_60nob"]
 [ext_resource type="Texture2D" uid="uid://bnyim5ta74n72" path="res://Resources/keyboard_z.png" id="6_irn6n"]
@@ -30,11 +29,6 @@ anchor_bottom = 1.0
 offset_top = -40.0
 offset_right = 1381.0
 grow_vertical = 0
-
-[node name="tp_togle" parent="HBoxContainer" instance=ExtResource("2_ap563")]
-layout_mode = 2
-texture = ExtResource("3_w4knj")
-text = "teleport mode"
 
 [node name="tp" parent="HBoxContainer" instance=ExtResource("2_ap563")]
 layout_mode = 2
